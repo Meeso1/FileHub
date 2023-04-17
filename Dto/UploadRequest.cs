@@ -6,7 +6,7 @@ public sealed class UploadRequest
 {
     public string? FileName { get; init; }
 
-    [Required] 
+    [Required]
     public required string Username { get; init; }
 
     public string? Password { get; init; }

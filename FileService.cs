@@ -1,5 +1,6 @@
 ﻿using FileHub.Configuration;
 using FileHub.Database;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -33,7 +34,7 @@ public sealed class FileService
         var entity = await _context.Files.FirstOrDefaultAsync(e => e.Id == id);
         if (entity is null) return null;
 
-        return entity.Username == username && (entity.Password is null || entity.Password == password);
+        return entity.Username == username && CheckPassword(password, entity.PasswordHash, username);
     }
 
     public async Task<StreamWithData> GetStreamAsync(Guid id)
@@ -48,6 +49,20 @@ public sealed class FileService
     {
         return await _context.Files.Where(e => e.Username == username).Select(e => FileDetails.FromEntity(e))
             .ToListAsync();
+    }
+
+    public static string? HashPassword(string? password, string username)
+    {
+        return password is null ? null : new PasswordHasher<string>().HashPassword(username, password);
+    }
+
+    private static bool CheckPassword(string? password, string? hash, string username)
+    {
+        if (hash is null) return true;
+        if (password is null) return false;
+
+        return new PasswordHasher<string>().VerifyHashedPassword(username, hash, password) is
+            PasswordVerificationResult.Success or PasswordVerificationResult.SuccessRehashNeeded;
     }
 }
 

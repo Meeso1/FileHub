@@ -11,7 +11,7 @@ public sealed class FileDetails
 
     public required string Username { get; init; }
 
-    public required string? Password { get; init; }
+    public required string? PasswordHash { get; init; }
 
     public required long Size { get; init; }
 
@@ -21,7 +21,7 @@ public sealed class FileDetails
         {
             Id = Id,
             FileName = FileName,
-            Password = Password,
+            PasswordHash = PasswordHash,
             Username = Username,
             Size = Size
         };
@@ -34,7 +34,7 @@ public sealed class FileDetails
             Id = entity.Id,
             FileName = entity.FileName,
             Username = entity.Username,
-            Password = entity.Password,
+            PasswordHash = entity.PasswordHash,
             Size = entity.Size
         };
     }

@@ -4,12 +4,12 @@ namespace FileHub.Dto;
 
 public sealed class FileDetailsResponse
 {
-    [Required] 
+    [Required]
     public required Guid Id { get; init; }
 
-    [Required] 
+    [Required]
     public required string FileName { get; init; }
 
-    [Required] 
+    [Required]
     public required long Size { get; init; }
 }

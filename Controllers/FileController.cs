@@ -22,7 +22,7 @@ public sealed class FileController : ControllerBase
             Id = Guid.NewGuid(),
             FileName = request.FileName ?? file.FileName,
             Username = request.Username,
-            Password = request.Password,
+            PasswordHash = FileService.HashPassword(request.Password, request.Username),
             Size = file.Length
         };
 

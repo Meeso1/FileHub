@@ -11,7 +11,7 @@ public sealed class FileEntity
 
     public required string Username { get; init; }
 
-    public string? Password { get; init; }
+    public string? PasswordHash { get; init; }
 
     public required long Size { get; init; }
 }
