@@ -24,7 +24,7 @@ public sealed class FileService
         if (!Directory.Exists(_config.Value.StorageLocation)) Directory.CreateDirectory(_config.Value.StorageLocation);
 
         var path = Path.Combine(_config.Value.StorageLocation, fileDetails.Id.ToString());
-        var storageFile = File.Open(path, FileMode.CreateNew);
+        await using var storageFile = File.Open(path, FileMode.CreateNew);
         await file.CopyToAsync(storageFile);
     }
 
@@ -40,7 +40,7 @@ public sealed class FileService
     {
         var fileData = FileDetails.FromEntity(await _context.Files.FirstAsync(e => e.Id == id));
         var path = Path.Combine(_config.Value.StorageLocation, id.ToString());
-        var stream = new FileStream(path, FileMode.Open);
+        var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         return new StreamWithData(stream, fileData);
     }
 

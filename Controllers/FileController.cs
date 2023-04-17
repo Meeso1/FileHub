@@ -15,7 +15,7 @@ public sealed class FileController : ControllerBase
 
     [HttpPost]
     [Route("upload")]
-    public async Task<Guid> UploadAsync(UploadRequest request, IFormFile file)
+    public async Task<Guid> UploadAsync(IFormFile file, [FromQuery] UploadRequest request)
     {
         var fileData = new FileDetails
         {
@@ -32,7 +32,7 @@ public sealed class FileController : ControllerBase
 
     [HttpGet]
     [Route("download/{id:guid}")]
-    public async Task<ActionResult<FileResult>> DownloadAsync(Guid id, [FromQuery] FileRequest request)
+    public async Task<ActionResult> DownloadAsync(Guid id, [FromQuery] FileRequest request)
     {
         var result = await _fileService.CheckPermissionsAsync(id, request.Username, request.Password);
         switch (result)
@@ -40,7 +40,7 @@ public sealed class FileController : ControllerBase
             case null:
                 return NotFound();
             case false:
-                return Forbid();
+                return Unauthorized();
         }
 
         var streamWithData = await _fileService.GetStreamAsync(id);
