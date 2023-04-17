@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<FileService>();
 builder.Services.AddDbContext<FilesDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("Files")));
+builder.Services.Configure<StorageConfiguration>(builder.Configuration.GetSection(StorageConfiguration.SectionName));
 
 builder.Services.AddControllers();
 
