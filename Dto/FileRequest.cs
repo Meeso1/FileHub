@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FileHub;
+namespace FileHub.Dto;
 
 public sealed class FileRequest
 {
-    [Required] 
+    [Required]
     public required string Username { get; init; }
 
-    [Required] 
-    public required string Password { get; init; }
+    public string? Password { get; init; }
 }

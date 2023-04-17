@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace FileHub;
+namespace FileHub.Database;
 
 public sealed class FilesDbContext : DbContext
 {
