@@ -4,7 +4,8 @@ namespace FileHub.Database;
 
 public sealed class FileEntity
 {
-    [Key] public required Guid Id { get; init; }
+    [Key] 
+    public required Guid Id { get; init; }
 
     public required string FileName { get; init; }
 
