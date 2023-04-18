@@ -25,6 +25,9 @@ using (var scope = app.Services.CreateScope())
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseCors(
+    x => x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(_ => true).AllowCredentials()
+);
 app.MapControllers();
 
 app.Run();
